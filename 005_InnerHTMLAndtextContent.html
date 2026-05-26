@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>005 InnerHTML And textContent : DOM</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+    <script>
+      let newItem = document.querySelectorAll("#list li").length;
+      setInterval(() => {
+        newItem += 1;
+        document.getElementById("list").innerHTML += `<li>${newItem}</li>`;
+      }, 1000);
+    </script>
+  </body>
+</html>

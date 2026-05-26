@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>005 Clone Node : DOM</title>
+  </head>
+  <body>
+    <h1 id="heading">Hello this is org heading</h1>
+    <h3 id="headingThree" style="color: red">This is org heading 3</h3>
+
+    <script>
+      setTimeout(() => {
+        let headerClone = document.getElementById("heading").cloneNode();
+        headerClone.textContent = "Hello this is copy heading";
+
+        let headerThreeClone = document
+          .getElementById("headingThree")
+          .cloneNode(true);
+        headerThreeClone.textContent = "This is copy heading 3";
+
+        document.body.append(headerClone);
+        document.body.append(headerThreeClone);
+      }, 5000);
+    </script>
+  </body>
+</html>

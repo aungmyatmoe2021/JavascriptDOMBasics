@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>004 Query Selector : DOM</title>
+  </head>
+  <body>
+    <ul id="list">
+      <li class="listItem">Item One</li>
+      <li class="listItem">Item Two</li>
+      <li class="listItem">Item Three</li>
+      <li class="listItem">Item Four</li>
+      <li class="listItem">Item Five</li>
+    </ul>
+    <script>
+      alert(document.querySelector("ul li:nth-child(2)").textContent);
+      let items = document.querySelectorAll(".listItem");
+      items.forEach((item) => alert(item.textContent));
+    </script>
+  </body>
+</html>

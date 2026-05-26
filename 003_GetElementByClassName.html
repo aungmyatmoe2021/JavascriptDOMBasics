@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>003 Get Element By Class Name : DOM</title>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <span class="item">Item One</span>
+      </li>
+      <li>
+        <span class="item">Item Two</span>
+      </li>
+      <li>
+        <span class="item">Item Three</span>
+      </li>
+      <li>
+        <span class="item">Item Four</span>
+      </li>
+      <li>
+        <span class="item">Item Five</span>
+      </li>
+    </ul>
+    <script>
+      let items = Array.isArray(document.getElementsByClassName("item"))
+        ? document.getElementsByClassName("item")
+        : Array.from(document.getElementsByClassName("item"));
+      items.forEach((item) => alert(item.innerHTML));
+    </script>
+  </body>
+</html>
