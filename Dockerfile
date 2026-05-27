@@ -1,11 +1,5 @@
-FROM nginx:alpine
-
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+FROM nginx:latest
 
 WORKDIR /usr/share/nginx/html
 
 COPY . .
-
-RUN chown -R appuser:appgroup /usr/share/nginx/html
-
-USER appuser
