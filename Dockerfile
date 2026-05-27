@@ -1,16 +1,10 @@
-FROM nginx:latest AS builder
-
-WORKDIR /usr/share/nginx/html
-
-COPY . .
-
-FROM nginx:latest AS runner
+FROM nginx:alpine
 
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /usr/share/nginx/html /usr/share/nginx/html
+COPY . .
 
 RUN chown -R appuser:appgroup /usr/share/nginx/html
 
