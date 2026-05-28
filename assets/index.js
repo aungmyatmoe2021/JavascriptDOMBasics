@@ -11,6 +11,10 @@ setInterval(() => {
   taskHeader.innerHTML = `My Tasks ${date.getDate()}-${date.getMonth()}-${date.getFullYear()} (${date.getHours().toString().length === 1 ? "0" + date.getHours() : date.getHours()}:${date.getMinutes().toString().length === 1 ? "0" + date.getMinutes() : date.getMinutes()}:${date.getSeconds().toString().length === 1 ? "0" + date.getSeconds() : date.getSeconds()})`;
 }, 1000);
 
+window.onload = function() {
+  loadData();
+};
+
 inputTask.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     if (inputTask.value.trim() === "") {
@@ -31,19 +35,34 @@ addbtn.addEventListener("click", function (e) {
 });
 
 function addList() {
-  if (addbtn.textContent === "Add") {
-    todos.push({ text: inputTask.value.trim(), isCompleted: false });
-  } else {
-    todos[editIndex].text = inputTask.value;
-    renderLists();
+  // if (addbtn.textContent === "Add") {
+  //   todos.push({ text: inputTask.value.trim(), isCompleted: false });
+  // } else {
+  //   todos[editIndex].text = inputTask.value;
+  //   loadData();
+  //   addbtn.textContent = "Add";
+  // }
+  // loadData();
+  if(addbtn.textContent === "Add"){
+    if(localStorage.getItem("todolist") === null){
+      localStorage.setItem('todolist', JSON.stringify([{ text: inputTask.value.trim(), isCompleted: false }]));
+    }else {
+      let currentList = JSON.parse(localStorage.getItem("todolist")) || [];
+      currentList.push({ text: inputTask.value.trim(), isCompleted: false });
+      localStorage.setItem("todolist",JSON.stringify(currentList));
+    }
+  }else {
+    let currentList = JSON.parse(localStorage.getItem("todolist"));
+    currentList[editIndex].text = inputTask.value;
+    localStorage.setItem("todolist",JSON.stringify(currentList));
     addbtn.textContent = "Add";
   }
-  renderLists();
+  loadData();
 }
 
-function renderLists() {
+function loadData() {
   clearField();
-  todos.forEach((todo, index) => {
+  JSON.parse(localStorage.getItem("todolist")).forEach((todo, index) => {
     let liElement = document.createElement("li");
     liElement.className = `todo-item ${todo.isCompleted ? "completed" : ""}`;
 
@@ -67,12 +86,16 @@ function clearField() {
 }
 
 function toggleComplete(index) {
-  todos[index].isCompleted = !todos[index].isCompleted;
-  renderLists();
+  // todos[index].isCompleted = !todos[index].isCompleted;
+  let currentList = JSON.parse(localStorage.getItem("todolist"));
+  currentList[index].isCompleted = !currentList[index].isCompleted;
+  localStorage.setItem("todolist",JSON.stringify(currentList));
+  loadData();
 }
 
 function editTodo(index) {
-  inputTask.value = todos[index].text;
+  let currentList = JSON.parse(localStorage.getItem("todolist"));
+  inputTask.value = currentList[index].text;
   inputTask.focus();
   inputTask.select();
   editIndex = index;
@@ -80,6 +103,8 @@ function editTodo(index) {
 }
 
 function deleteTodo(index) {
-  todos.splice(index, 1);
-  renderLists();
+  let currentList = JSON.parse(localStorage.getItem("todolist"));
+  currentList.splice(index, 1);
+  localStorage.setItem("todolist",JSON.stringify(currentList));
+  loadData();
 }
